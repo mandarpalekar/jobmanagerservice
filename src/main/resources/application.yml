@@ -1,0 +1,51 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://31ab414ce08b:5432/job_manager
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  logging:
+    file:
+      name: /app/logs/application.log
+    level:
+      root: INFO
+      org.springframework: INFO
+      org.hibernate.SQL: DEBUG
+      org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+      org.hibernate.type.descriptor.sql.BasicType: TRACE
+      org.hibernate.resource.transaction.backend.jdbc.internal.JdbcIsolationDelegate: TRACE
+
+  main:
+    log-startup-info: true  # Added `true` to ensure startup info is logged
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  # Allows all management endpoints to be exposed; ensure this is safe for production
+  endpoint:
+    health:
+      show-details: always
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+    name: Job Manager
+    description: A simple job application system
+    version: 1.0.0
+
+server:
+  shutdown: graceful
+  port: 8080
